@@ -81,7 +81,7 @@ class ProductoControllerTest {
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
 		verify(productService, times(1)).eliminarProducto(3);
 	}
-	
+	/*
 	// Si se actualizan los datos exitosamente, entonces retorna status OK
 		@Test
 		void siHaceClickEnBotonParaModificarUnProductoYLosModificaEntoncesRetornaOK() throws Exception {
@@ -100,5 +100,5 @@ class ProductoControllerTest {
 			verify(productService, times(1)).modificarProducto(3, "Tierra Compost", "ARTHEMIS", 
 					"Producto natural, en base a compostación de residuos orgánicos", 5900, 25, "Activo");
 		}
-	
+	*/
 }
