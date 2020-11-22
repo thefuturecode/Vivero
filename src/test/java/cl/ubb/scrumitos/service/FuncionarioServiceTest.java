@@ -51,10 +51,7 @@ class FuncionarioServiceTest {
 	void siSeRequiereIngresarUnNuevoFuncionarioYlosCamposEstanCompletosEntoncesSeAgrega() throws FuncionarioAlreadyExistsException{ 
 	
 		Funcionario funcionario = new Funcionario("19289859-7", "Javier", "Saavedra", "vendedor","+56985997895","j.Saavedra@gmail.com",1);
-		//when(funcionarioRepo.save(funcionario)).thenReturn(funcionario);
-		//doReturn(new Funcionario("19289859-7", "Javier", "Saavedra", "vendedor","+56985997895","j.Saavedra@gmail.com",1).when(funcionarioRepo.save(funcionario)));
-		//given(funcionarioRepo.save(funcionario)).willReturn(new Funcionario("19289859-7", "Javier", "Saavedra", "vendedor","+56985997895","j.Saavedra@gmail.com",1));
-
+		
 		//act
 		funcService.agregar(funcionario);
 		
