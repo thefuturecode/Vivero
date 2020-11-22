@@ -32,20 +32,6 @@ class FuncionarioServiceTest {
 		
 	
 	
-	/*
-	
-	**Escenario 1 Ingresar nuevo personal exitosamente:
-		Cuando el administrador desee ingresar los datos del nuevo 
-		personal se ingresarán los datos y al presionar el botón ingresar 
-		se mostrará un mensaje "Se ha añadido exitosamente al nuevo funcionario".
-
-		**Escenario 2 Ingresar personal previamente registrado:
-		Cuando el administrador desee ingresar los datos del nuevo personal
-		que ya existen en el sistema al presionar el botón ingresar se mostrara un mensaje 
-		por pantalla “¡Error! Los datos del funcionario ya se encuentran registrados en el sistema".
-		
-		*/
-	
 	//Caso Exitoso
 	@Test 
 	void siSeRequiereIngresarUnNuevoFuncionarioYlosCamposEstanCompletosEntoncesSeAgrega() throws FuncionarioAlreadyExistsException{ 
