@@ -36,7 +36,9 @@ class ProductoControllerTest {
 	
 	@InjectMocks
 	private ProductoController productController;
+	
 	private JacksonTester<Producto> jsonProducto;
+	
 	@BeforeEach
 	void setup() {
 		JacksonTester.initFields(this, new ObjectMapper());
