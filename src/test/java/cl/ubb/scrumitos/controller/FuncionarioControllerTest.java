@@ -29,7 +29,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cl.ubb.scrumitos.exceptions.FuncionarioAlreadyExistsException;
-
+import cl.ubb.scrumitos.exceptions.FuncionarioNotFoundException;
+import cl.ubb.scrumitos.exceptions.ProductNotFoundException;
 import cl.ubb.scrumitos.model.Funcionario;
 
 import cl.ubb.scrumitos.service.FuncionarioService;
@@ -60,7 +61,7 @@ class FuncionarioControllerTest {
 	@Test
 	void AlHacerClickEnELBotonParaAgregarUnNuevoFuncionarioSeDebeAgregarConExito() throws Exception {
 		
-		Funcionario funcionario = new Funcionario("19289859-7", "Javier", "Saavedra", "vendedor","+56985997895","j.Saavedra@gmail.com",1);
+		Funcionario funcionario = new Funcionario("19289859-7", "Javier", "Saavedra", "vendedor","+56985997895","j.Saavedra@gmail.com",1,"activo");
 		MockHttpServletResponse response = mockMvc.perform(
 		 post("/funcionarios").contentType(MediaType.APPLICATION_JSON)
 		 .content(jsonFuncionario.write(funcionario).getJson()))
@@ -69,5 +70,19 @@ class FuncionarioControllerTest {
 		 assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
 	}
 	
-	
+	@Test
+	void AlHacerClickEnBotonParaEliminarUnFuncionarioPeroEsteNoEsEncontradoEntoncesRetornaNotFoundStatus() throws Exception {
+		// given
+		doThrow(new FuncionarioNotFoundException()).when(funcService).eliminarFuncionario(1);
+		
+		// when
+		MockHttpServletResponse response = mockMvc.perform(get("/funcionarios/eliminar/1")
+				.accept(MediaType.APPLICATION_JSON))
+				.andReturn().getResponse();
+		
+		// then 
+		assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
+		verify(funcService, times(1)).eliminarFuncionario(1);
+		
+	}
 }

@@ -13,10 +13,11 @@ public class Funcionario {
 	private String telefono;
 	private String email;
 	private int idFuncionario;
+	private String estado;
 	
 	public Funcionario() {}
 	
-	public Funcionario(String run, String nombre, String apellido, String cargo, String telefono, String email,int idFuncionario) {
+	public Funcionario(String run, String nombre, String apellido, String cargo, String telefono, String email,int idFuncionario, String estado) {
 		this.run = run;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -24,6 +25,7 @@ public class Funcionario {
 		this.telefono = telefono;
 		this.email = email;
 		this.idFuncionario = idFuncionario;
+		this.estado=estado;
 	}
 
 
@@ -77,6 +79,14 @@ public class Funcionario {
 
 	public void setIdFuncionario(int idFuncionario) {
 		this.idFuncionario = idFuncionario;
+	}
+	
+	public String getEstadoFuncionario() {
+		return estado;
+	}
+
+	public void setEstadoFuncionario(String estado) {
+		this.estado = estado;
 	}
 
 
