@@ -78,22 +78,4 @@ class ProveedorControllerTest {
 		verify(proveedorService, times(1)).delete(2);
 	}
 
-	// Modificación de Proveedores
-	// modificación Exitosa
-	@Test
-	void siElProveedorEsEncontradoYModificadoEntoncesLaOperacionSeRealizaExitosamente() throws Exception {
-		// given
-		Proveedor p = new Proveedor(1, "18.305.605-3", "Las Camelias 676, Chillán", "+56934299141", "patricia@contacto.com", 
-				"Patricia Alejandra Escalada Fuentes", "Inactivo");
-
-		// when
-		MockHttpServletResponse response = mockMvc
-				.perform(put("/proveedores/modificar/1").accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-		
-
-		// then
-		assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
-		verify(proveedorService, times(1)).modificarProveedor(1, "18.305.605-3", "Las Camelias 676, Chillán", "+56934299141", "patricia@contacto.com", 
-				"Patricia Alejandra Escalada Fuentes", "Inactivo");
-	}
 }
