@@ -1,5 +1,6 @@
 package cl.ubb.scrumitos.controller;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -10,9 +11,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cl.ubb.scrumitos.exceptions.BlankDataException;
 import cl.ubb.scrumitos.exceptions.ProductNotFoundException;
+import cl.ubb.scrumitos.exceptions.WithoutChangesException;
 import cl.ubb.scrumitos.model.Producto;
 import cl.ubb.scrumitos.service.ProductoService;
 
@@ -50,4 +55,11 @@ public class ProductoController {
 		return new ResponseEntity<Producto>(HttpStatus.OK);
 	}
 
+	// Modificación exitosa de un producto
+    @PutMapping("modificar")
+    public ResponseEntity<Producto> modificaProducto(@RequestBody Producto producto) throws ProductNotFoundException, WithoutChangesException, BlankDataException{
+        productoService.modificarProducto(producto.getCodigo(), producto.getNombre(), producto.getMarca(),
+                    producto.getDescripcion(), producto.getPrecio(), producto.getStock(), producto.getEstado());
+        return new ResponseEntity<Producto>(producto, HttpStatus.OK);
+    }
 }

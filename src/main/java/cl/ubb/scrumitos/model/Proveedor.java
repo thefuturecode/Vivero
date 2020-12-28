@@ -53,4 +53,29 @@ public class Proveedor {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setRut(String rut) {
+		this.rut = rut;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
 }
