@@ -69,7 +69,20 @@ class FuncionarioControllerTest {
 		// then
 		 assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
 	}
+	// caso exitoso eliminación logica
+	@Test
+	void alHacerClickEnBotonParaEliminarUnProductoEntoncesSeDebeCambiarSuEstadoDeActivoAInactivo() throws Exception {
 	
+		// when
+		MockHttpServletResponse response = mockMvc.perform(get("/funcionarios/eliminar/1")
+				.accept(MediaType.APPLICATION_JSON))
+				.andReturn().getResponse();
+		
+		// then
+		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+		verify(funcService, times(1)).eliminarFuncionario(1);;
+	}
+	//caso no exitoso
 	@Test
 	void AlHacerClickEnBotonParaEliminarUnFuncionarioPeroEsteNoEsEncontradoEntoncesRetornaNotFoundStatus() throws Exception {
 		// given
