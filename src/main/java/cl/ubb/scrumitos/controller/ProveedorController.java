@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import cl.ubb.scrumitos.exceptions.ProveedorNotFoundException;
 import cl.ubb.scrumitos.model.Proveedor;
 import cl.ubb.scrumitos.service.ProveedorService;
 
-@Controller
+@RestController
 @RequestMapping("/proveedores/")
 public class ProveedorController {
 	
@@ -35,7 +36,7 @@ public class ProveedorController {
 	}
 
 	// Agregar un nuevo proveedor
-	@PostMapping("")
+	@PostMapping("agregar")
 	public ResponseEntity<Proveedor> agregarProveedor(@RequestBody Proveedor proveedor) {
 		Proveedor nuevoProveedor = proveedorService.addProvider(proveedor);
 

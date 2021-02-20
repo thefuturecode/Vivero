@@ -8,10 +8,9 @@ Feature: Servicios asociados a un vivero
      Then se obtiene el estado "created"
 
     Scenario: Ingresar un nuevo proveedor
-     Given se tiene un nuevo proveedor; idProveedor 16, nombre "Berta Ortiz", rut "12632851-9", 
-           telefono "952361478", email "berta@mail.com", direccion "Tomas Delphin 878"
+     Given se tiene un nuevo proveedor; nombre "Berta Ortiz", rut "12632851-9", telefono "952361478", email "berta@mail.com", direccion "Tomas Delphin 878"
      When se desea agregar a este proveedor a los registros del vivero
-     Then se obtiene el estado "created"
+     Then se obtiene el estado "created" y el proveedor creado tiene como nombre "Berta Ortiz", rut "12632851-9" y direccion "Tomas Delphin 878"
 
 
 

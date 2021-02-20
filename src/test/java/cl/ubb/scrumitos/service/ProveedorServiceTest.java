@@ -27,9 +27,9 @@ class ProveedorServiceTest {
 	@InjectMocks
 	private ProveedorService proveedorService;
 
-	private Proveedor mockedProvider = new Proveedor(2, "56.925.741-4",
+	private Proveedor mockedProvider = new Proveedor("56.925.741-4",
 			"Panamericana Norte Km. 102. Hijuelas, V Región", "332272799", "contacto@grupohijuelas.cl",
-			"Grupo Hijuelas", "Activo");
+			"Grupo Hijuelas");
 
 	private Proveedor foundProvider;
 
@@ -89,7 +89,7 @@ class ProveedorServiceTest {
 	void siDeseaModificarProveedorYEsteEsEncontradoEntoncesLoModificaYGuardaLosCambios()
 			throws ProductNotFoundException, WithoutChangesException, BlankDataException, ProveedorNotFoundException {
 		// Arrange
-		Proveedor proveedorBuscado = new Proveedor(1, "18.305.605-3", "Las Camelias 676", "+56934299140", "patricia@gmail.com", "Patricia Escalada Fuentes", "Activo");
+		Proveedor proveedorBuscado = new Proveedor("18.305.605-3", "Las Camelias 676", "+56934299140", "patricia@gmail.com", "Patricia Escalada Fuentes");
 		when(proveedorRepo.getOne(1)).thenReturn(proveedorBuscado);
 
 		// Act
@@ -114,8 +114,8 @@ class ProveedorServiceTest {
 	void siDeseaModificarProveedorYEsteEsEncontradoEntoncesLoModificaSinCambiosYGuardaLosCambios()
 			throws ProductNotFoundException, WithoutChangesException {
 		// Arrange
-		Proveedor proveedorBuscado = new Proveedor(1, "18.305.605-3", "Las Camelias 676", "+56934299140", "patricia@gmail.com",
-				"Patricia Escalada Fuentes", "Activo");
+		Proveedor proveedorBuscado = new Proveedor("18.305.605-3", "Las Camelias 676", "+56934299140", "patricia@gmail.com",
+				"Patricia Escalada Fuentes");
 		when(proveedorRepo.getOne(1)).thenReturn(proveedorBuscado);
 
 		// Act + Assert
@@ -130,8 +130,8 @@ class ProveedorServiceTest {
 	void siDeseaModificarProveedorYEsteEsEncontradoEntoncesLoModificaConDatosEnBlancoYGuardaLosCambios()
 			throws ProductNotFoundException, WithoutChangesException, BlankDataException {
 		// Arrange
-		Proveedor proveedorBuscado = new Proveedor(1, "18.305.605-3", "Las Camelias 676", "+56934299140", "patricia@gmail.com",
-				"Patricia Escalada Fuentes", "Activo");
+		Proveedor proveedorBuscado = new Proveedor("18.305.605-3", "Las Camelias 676", "+56934299140", "patricia@gmail.com",
+				"Patricia Escalada Fuentes");
 
 		when(proveedorRepo.getOne(1)).thenReturn(proveedorBuscado);
 

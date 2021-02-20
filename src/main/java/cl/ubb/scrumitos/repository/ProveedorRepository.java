@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import cl.ubb.scrumitos.model.Proveedor;
 
 @Repository
-@Profile("jpa")
 public interface ProveedorRepository extends JpaRepository<Proveedor, Integer>{
 
 	/*public Object findById(int i) {
