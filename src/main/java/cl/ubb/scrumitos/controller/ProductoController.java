@@ -1,6 +1,6 @@
 package cl.ubb.scrumitos.controller;
 
-import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ public class ProductoController {
 	private ProductoService productoService;
 
 	// Agregar un nuevo producto
-	@PostMapping("agregar/{producto}")
+	@PostMapping("agregar")
 	public ResponseEntity<Producto> logicAgregar(Producto producto, BindingResult result, Model model) {
 
 		try {

@@ -39,7 +39,7 @@ class ValeControllerTest {
 	@InjectMocks
 	private ValeController valeController;
 
-	private JacksonTester<Producto> jsonProducto;
+	private JacksonTester<Vale> jsonVale;
 
 	@BeforeEach
 	void setup() {
@@ -51,12 +51,14 @@ class ValeControllerTest {
 	@Test
 	void alPresionarAgregarValeEsteSeDebeIngresar() throws Exception {
 		// given
-		Vale vale = new Vale(1, 1, new Date(), 1, 2000);
+		Vale vale = new Vale(1, "2020-01-02", 1, 2000);
 
 		// when
-		MockHttpServletResponse response = mockMvc
-				.perform(post("/vale/agregar/" + vale).accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-		
+		MockHttpServletResponse response = mockMvc.perform(
+				 post("/vale/agregar").contentType(MediaType.APPLICATION_JSON)
+				 .content(jsonVale.write(vale).getJson()))
+						.andReturn().getResponse();
+		// then
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
 
 	}
@@ -68,7 +70,7 @@ class ValeControllerTest {
 	@Test
 	void alPresionarActualizarValeSeDebeDesplegarTodaLaInformacionDeEste() throws Exception {
 		// given
-		Vale vale2 = new Vale(2, 1, new Date(), 1, 2000);
+		Vale vale2 = new Vale(1, "2010-02-02", 1, 2000);
 
 		// when
 		MockHttpServletResponse response = mockMvc.perform(get("/vale/actualizar/2").accept(MediaType.APPLICATION_JSON))
@@ -76,6 +78,19 @@ class ValeControllerTest {
 
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
 
+	}
+	
+	//ELIMINAR VALE
+	
+	@Test
+	void alPresionarEliminarSeDebeEliminarElVale() throws Exception {
+		// given
+		Vale vale3 = new Vale(1, "2020-09-23", 1, 2000);
+		
+		MockHttpServletResponse response = mockMvc.perform(get("/vale/eliminar/2").accept(MediaType.APPLICATION_JSON))
+				.andReturn().getResponse();
+		
+		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
 	}
 
 }

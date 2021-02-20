@@ -49,16 +49,15 @@ class ProductoControllerTest {
 	//AGREGAR NUEVO PRODUCTO
 	
 	@Test
-	void alPresionarAgregarProductoEsteSeDebeIngresar() throws Exception {
-		// given
-		Producto producto = new Producto(1, "Arbol frutal", "Kilamapu", "Arbol de 30 centimetros", 500, 10,
-				"Activo");
-		// when
-		MockHttpServletResponse response = mockMvc.perform(post("/productos/agregar/"+producto)
-				.accept(MediaType.APPLICATION_JSON))
-				.andReturn().getResponse();
+	void alPresionarAgregarProductoEsteSeDebeIngresar() throws Exception{
+		Producto producto = new Producto(1, "Arbol frutal", "Kilamapu", "Arbol de 30 centimetros", 500, 10,"Activo");
+		
+		MockHttpServletResponse response = mockMvc.perform(
+				 post("/productos/agregar").contentType(MediaType.APPLICATION_JSON)
+				 .content(jsonProducto.write(producto).getJson()))
+						.andReturn().getResponse();
+		// then
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-
 	}
 	
 	// ELIMINACIÓN LÓGICA DE UN PRODUCTO

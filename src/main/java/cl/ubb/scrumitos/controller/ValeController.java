@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cl.ubb.scrumitos.exceptions.BlankDataException;
@@ -29,17 +30,17 @@ public class ValeController {
 	@Autowired
 	private ValeService valeService;
 	
-	@PostMapping("/agregar/{vale}")
-	public ResponseEntity<Vale> logicAgregar(Vale vale, BindingResult result, Model model) throws Exception {
+	@PostMapping("/agregar")
+	public ResponseEntity<Vale> logicAgregar(@RequestBody Vale vale) throws Exception {
 		
 		try {
 			valeService.guardarVale(vale);
+			return new ResponseEntity<>(vale, HttpStatus.CREATED);
 			
 		} catch (Exception e) {
-			return new ResponseEntity<Vale>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.CONFLICT);
 		}
 		
-		return new ResponseEntity<Vale>(HttpStatus.OK);
 	}
 	
 	@GetMapping("/actualizar/{id}")
@@ -52,6 +53,13 @@ public class ValeController {
 			return new ResponseEntity<Vale>(HttpStatus.NOT_FOUND);
 		}
 
+		return new ResponseEntity<Vale>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/eliminar/{id}")
+	public ResponseEntity<Vale> eliminarVale(@PathVariable int id){
+		
+		valeService.eliminarVale(id);
 		return new ResponseEntity<Vale>(HttpStatus.OK);
 	}
 	

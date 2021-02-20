@@ -3,12 +3,15 @@ package cl.ubb.scrumitos.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 @Entity
 public class Vale {
-	
+	@Id
+	@GeneratedValue
 	private int idVale;
 	private int idFuncionario;
-	private Date fecha;
+	private String fecha;
 	private int codigoProducto;
 	private int total;
 	
@@ -19,7 +22,7 @@ public class Vale {
 	}
 
 
-	public Vale(int idVale, int idFuncionario, Date fecha, int codigoProducto, int total) {
+	public Vale(int idFuncionario, String fecha, int codigoProducto, int total) {
 		this.idVale = idVale;
 		this.idFuncionario = idFuncionario;
 		this.fecha = fecha;
@@ -44,11 +47,11 @@ public class Vale {
 		this.idFuncionario = idFuncionario;
 	}
 
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 

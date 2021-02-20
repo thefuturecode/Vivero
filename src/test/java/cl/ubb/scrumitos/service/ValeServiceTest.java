@@ -38,7 +38,7 @@ class ValeServiceTest {
 	@Test
 	void SiElValeYaFueIngresadoEntoncesSeDebeLanzarUnaExcepcion() throws ValeAlreadyExistsException{
 		// Arrange
-		Vale vale = new Vale(10,1,new Date(),1,2000);
+		Vale vale = new Vale(1,"2020-02-02",1,2000);
 		when(valeRepo.findById(10)).thenReturn(vale);
 		
 		// Act 
@@ -49,7 +49,7 @@ class ValeServiceTest {
 	@Test
 	void SiSeRegistraUnValeConDatosNulosSeDebeLanzarUnaExcepcion() throws Exception {
 		// Arrange
-		Vale vale = new Vale(0,0,null,0,0);
+		Vale vale = new Vale(0,null,0,0);
 		when(valeRepo.findById(10)).thenReturn(vale);
 		
 		// Act 
@@ -64,7 +64,7 @@ class ValeServiceTest {
 	void siSeRequiereIngresarUnNuevoFuncionarioYlosCamposEstanCompletosEntoncesSeAgrega() throws ValeAlreadyExistsException, ValeNotFoundException, BlankDataException{
 		
 		// Arrange
-		Vale vale = new Vale(1,1,new Date(),1,4000);
+		Vale vale = new Vale(1,"2020-02-02",1,4000);
 		
 		//act
 		valeService.guardarVale(vale);
@@ -74,7 +74,7 @@ class ValeServiceTest {
 		assertAll("vale",
 				() -> assertEquals(1,vale.getIdVale()),
 				() -> assertEquals(1,vale.getIdFuncionario()),
-				() -> assertEquals( new Date(), new Date()),
+				() -> assertEquals( "2020-02-02", vale.getFecha()),
 				() -> assertEquals(1,vale.getCodigoProducto()),
 				() -> assertEquals(4000,vale.getTotal())
 			);
@@ -86,23 +86,34 @@ class ValeServiceTest {
 	//ACTUALIZAR VALE
 	//Actualización sin cambios
 	@Test
-	void siDeseaModificarElValePeroNoSeRealizanCambios() throws Exception {
+	public void siSeDeseaModificarUnValeYNoSeCambianLosDatosEntoncesSeGuardanLosMismosDatos() {
 		
-		// Arrange
-		Vale vale = new Vale(2,1,new Date(),1,4000);
-		when(valeRepo.findById(2)).thenReturn(vale);
+		//Arrange
+		String fecha = "2020-02-02";
+		Vale vale = new Vale(1,fecha,1,4000);
+		when(valeRepo.findById(1)).thenReturn(vale);
 		
-		assertThrows(Exception.class, ()-> valeService.modificarVale(vale));
+		//Act
+		valeService.modificarVale(1,1,fecha,1,4000);
+		
+		//Assert
+		assertNotNull(vale);
+		assertEquals(1,vale.getIdVale());
+		assertEquals(1,vale.getIdFuncionario());
+		assertEquals(fecha,vale.getFecha());
+		assertEquals(1,vale.getCodigoProducto());
+		assertEquals(4000,vale.getTotal());
+		
+		verify(valeRepo,times(1)).save(vale);
 	}
-	
 	
 	@Test
 	void siDeseaModificarElValeYEsteEsEncontradoEntoncesLoModificaConDatosEnBlancoYGuardaLosCambios() 
 		throws Exception {
 		
 		// Arrange
-		Vale valeAModificar = new Vale(3,1,new Date(),1,4000);
-		Vale valeConNuevosDatos = new Vale(0,0,null,0,0);
+		Vale valeAModificar = new Vale(1,"2020-02-02",1,4000);
+		Vale valeConNuevosDatos = new Vale(0,null,0,0);
 		
 		when(valeRepo.findById(3)).thenReturn(valeAModificar);
 		// Act + Assert
@@ -110,11 +121,26 @@ class ValeServiceTest {
 	}
 	@Test
 	void siSeIngresanDatosNoNullSeDebeModificarElVale() throws Exception {
-		Vale valeAModificar = new Vale(3,1,new Date(),1,4000);
+		Vale valeAModificar = new Vale(1,"2020-02-02",1,4000);
 		when(valeRepo.findById(3)).thenReturn(valeAModificar);
 		
 		// Act + Assert
-		assertThrows(Exception.class, ()-> valeService.modificarVale(new Vale(3,2,new Date(),2,6000)));
+		assertThrows(Exception.class, ()-> valeService.modificarVale(new Vale(2,"2020-02-02",2,6000)));
+		
+	}
+	
+	//ELIMINACIÓN DE UN VALE
+	@Test
+	void siSeDeseaEliminarUnValeYesteExisteEntoncesSeBuscaYSeElimina() {
+		// Arrange
+		Vale valeAEliminar = new Vale(1,"2020-02-02",1,4000);
+		when(valeRepo.findById(1)).thenReturn(valeAEliminar);
+		
+		//Act
+		valeService.eliminarVale(1);
+		
+		//Assert
+		verify(valeRepo, times(1)).delete(valeAEliminar);
 		
 		
 	}

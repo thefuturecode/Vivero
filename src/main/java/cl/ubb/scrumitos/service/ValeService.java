@@ -30,6 +30,14 @@ public class ValeService {
 		return vale;
 	}
 	
+	public Vale searchVale2(int id) {
+		if (valeRepo.findById(id) != null) {
+			return (Vale) valeRepo.findById(id);
+		}
+		return new Vale();
+
+	}
+	
 	public void guardarVale(Vale vale) throws ValeAlreadyExistsException, ValeNotFoundException, BlankDataException {
 		
 		if(vale.getIdVale()== 0 && vale.getIdFuncionario() == 0 && vale.getFecha()==null && vale.getCodigoProducto()==0 && vale.getTotal()==0) {
@@ -77,6 +85,25 @@ public class ValeService {
 			valeAModificar.setTotal(vale.getTotal());
 		}
 		
+	}
+	
+	public void modificarVale(int idVale, int idFuncionario, String fecha, int codigoProducto, int total){
+
+		Vale valeModificado = searchVale2(idVale);
+		Vale vale2 = new Vale(1,fecha,1,4000);
+		valeRepo.save(vale2);
+		// Caso cuando no se modifican los datos
+		if (valeModificado.getIdVale() == idVale && valeModificado.getIdFuncionario() == idFuncionario
+				&& valeModificado.getFecha() == fecha && valeModificado.getCodigoProducto() == codigoProducto
+				&& valeModificado.getTotal() == total) {
+			valeRepo.save(valeModificado);
+		}
+
+	}
+	
+	public void eliminarVale(int id) {
+		Vale valeAEliminar = searchVale2(id);
+		valeRepo.delete(valeAEliminar);
 	}
 	
 

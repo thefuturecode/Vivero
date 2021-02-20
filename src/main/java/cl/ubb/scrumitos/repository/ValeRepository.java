@@ -17,4 +17,13 @@ public class ValeRepository {
 		
 		
 	}
+	
+	public void delete(Vale vale) {
+		// TODO Auto-generated method stub
+	}
+
+	public void deleteAll() {
+		// TODO Auto-generated method stub
+		
+	}
 }
