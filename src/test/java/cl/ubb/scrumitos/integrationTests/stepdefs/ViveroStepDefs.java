@@ -1,19 +1,14 @@
 package cl.ubb.scrumitos.integrationTests.stepdefs;
 
-import java.util.Date;
-
 import org.junit.After;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.LocalServerPort;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 
@@ -49,7 +44,7 @@ public class ViveroStepDefs extends CucumberSpringContextConfiguration{
 	    }
 	 
 	 //Ingreso de un vale
-	 @Given("exixte un vale; idFuncionario {int}, fecha {string}, codigoProducto {int}, total {int}")
+	 @Given("existe un vale; idFuncionario {int}, fecha {string}, codigoProducto {int}, total {int}")
 	 public void existe_un_nuevo_vale_idFuncionario_fecha_codigoProducto_total(int idFuncionario, String fecha, int codigoProducto, int total) {
 		 vale = new Vale(idFuncionario, fecha, codigoProducto, total);
 		 
@@ -70,8 +65,9 @@ public class ViveroStepDefs extends CucumberSpringContextConfiguration{
 		//assertEquals(estado.toUpperCase(),responseVale.getStatusCode().name().toString());
 		 
 	 }
-	 private String createURLWithPort(String uri) {
-	        return "http://localhost:" + port + uri;
-	    }
+
+	private String createURLWithPort(String uri) {
+	    return "http://localhost:" + port + uri;
+	}
 
 }

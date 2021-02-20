@@ -15,7 +15,6 @@ import cl.ubb.scrumitos.exceptions.BlankDataException;
 import cl.ubb.scrumitos.exceptions.ProductNotFoundException;
 import cl.ubb.scrumitos.exceptions.ProveedorNotFoundException;
 import cl.ubb.scrumitos.exceptions.WithoutChangesException;
-import cl.ubb.scrumitos.model.Producto;
 import cl.ubb.scrumitos.model.Proveedor;
 import cl.ubb.scrumitos.repository.ProveedorRepository;
 
@@ -41,7 +40,7 @@ class ProveedorServiceTest {
 	void alBuscarUnProveedorParaEliminarloEsteSiEsEncontradoYDevueltoPorElRepositorio()
 			throws ProveedorNotFoundException {
 		// Arrange
-		when(proveedorRepo.findById(2)).thenReturn(mockedProvider);
+		when(proveedorRepo.getOne(2)).thenReturn(mockedProvider);
 
 		// Act
 		foundProvider = proveedorService.searchProvider(2);
@@ -63,7 +62,7 @@ class ProveedorServiceTest {
 	void luegoDeEncontrarElProveedorQueSeQuiereEliminarSeCambiaSuEstadoDeActivoAInactivo()
 			throws ProveedorNotFoundException {
 		// Arrange
-		when(proveedorRepo.findById(2)).thenReturn(mockedProvider);
+		when(proveedorRepo.getOne(2)).thenReturn(mockedProvider);
 
 		// Act
 		proveedorService.delete(2);
@@ -91,7 +90,7 @@ class ProveedorServiceTest {
 			throws ProductNotFoundException, WithoutChangesException, BlankDataException, ProveedorNotFoundException {
 		// Arrange
 		Proveedor proveedorBuscado = new Proveedor(1, "18.305.605-3", "Las Camelias 676", "+56934299140", "patricia@gmail.com", "Patricia Escalada Fuentes", "Activo");
-		when(proveedorRepo.findById(1)).thenReturn(proveedorBuscado);
+		when(proveedorRepo.getOne(1)).thenReturn(proveedorBuscado);
 
 		// Act
 		proveedorService.modificarProveedor(1, "18.305.605-3", "Las Camelias 676, Chillán", "+56934299141", "patricia@contacto.com", 
@@ -117,7 +116,7 @@ class ProveedorServiceTest {
 		// Arrange
 		Proveedor proveedorBuscado = new Proveedor(1, "18.305.605-3", "Las Camelias 676", "+56934299140", "patricia@gmail.com",
 				"Patricia Escalada Fuentes", "Activo");
-		when(proveedorRepo.findById(1)).thenReturn(proveedorBuscado);
+		when(proveedorRepo.getOne(1)).thenReturn(proveedorBuscado);
 
 		// Act + Assert
 		assertThrows(WithoutChangesException.class,
@@ -134,7 +133,7 @@ class ProveedorServiceTest {
 		Proveedor proveedorBuscado = new Proveedor(1, "18.305.605-3", "Las Camelias 676", "+56934299140", "patricia@gmail.com",
 				"Patricia Escalada Fuentes", "Activo");
 
-		when(proveedorRepo.findById(1)).thenReturn(proveedorBuscado);
+		when(proveedorRepo.getOne(1)).thenReturn(proveedorBuscado);
 
 		// Act + Assert
 		assertThrows(BlankDataException.class, () -> proveedorService.modificarProveedor(1, "", "", "", "", "", ""));
