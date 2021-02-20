@@ -1,10 +1,15 @@
 package cl.ubb.scrumitos.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Producto {
+	@Id
+	@GeneratedValue
 	private int codigo;
+	
 	private String nombre;
 	private String marca;
 	private String descripcion;

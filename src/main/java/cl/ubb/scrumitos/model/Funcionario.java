@@ -1,17 +1,21 @@
 package cl.ubb.scrumitos.model;
 
 import javax.persistence.Entity;
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Funcionario {
- 
+
 	private String run;
 	private String nombre;
 	private String apellido;
 	private String cargo;
 	private String telefono;
 	private String email;
+
+	@Id
+	@GeneratedValue
 	private int idFuncionario;
 	private String estado;
 	
