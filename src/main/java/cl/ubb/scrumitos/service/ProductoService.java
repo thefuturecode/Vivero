@@ -35,39 +35,43 @@ public class ProductoService {
 		deletedProduct.setEstado("Inactivo");
 		productRepo.save(deletedProduct);
 	}
-
-	public void modificarProducto(int codigo, String nombre, String marca, String descripcion, int precio, 
-			int stock, String estado) throws ProductNotFoundException, WithoutChangesException, BlankDataException {
-		Producto modifiedProduct = searchProduct(codigo);
-		//Caso Sin cambios, mismos datos
-		if(modifiedProduct.getNombre().equalsIgnoreCase(nombre) && modifiedProduct.getDescripcion().equalsIgnoreCase(descripcion)
-				&& modifiedProduct.getMarca().equalsIgnoreCase(marca) && modifiedProduct.getPrecio() == precio
-				&& modifiedProduct.getStock() == stock && modifiedProduct.getEstado().equalsIgnoreCase(estado)) {
+	
+	public void modificarProducto(Producto productoModificado) throws ProductNotFoundException, WithoutChangesException, BlankDataException {
+		Producto productoOriginal = searchProduct(productoModificado.getCodigo());
+		
+		if(productoOriginal.getNombre().equalsIgnoreCase(productoModificado.getNombre()) && 
+				productoOriginal.getDescripcion().equalsIgnoreCase(productoModificado.getDescripcion()) &&
+				productoOriginal.getMarca().equalsIgnoreCase(productoModificado.getMarca()) &&
+				productoOriginal.getPrecio() == productoModificado.getPrecio() && productoOriginal.getStock() == productoModificado.getStock()
+				&& productoOriginal.getEstado().equalsIgnoreCase(productoModificado.getEstado())) {
 			throw new WithoutChangesException();
 		}
-		//Caso Con datos en Blanco
-		if((nombre.isEmpty() && descripcion.isEmpty() && marca.isEmpty() && estado.isEmpty()) && (precio == 0 && stock == 0)) {
+		
+		if(productoModificado.getNombre().isEmpty() || productoModificado.getDescripcion().isEmpty() ||
+				productoModificado.getMarca().isEmpty() || productoModificado.getPrecio() == 0 || productoModificado.getStock() == 0
+				|| productoModificado.getEstado().isEmpty()) {
 			throw new BlankDataException();
 		}
-		//Caso donde se modifican los datos
-		if(!modifiedProduct.getNombre().equalsIgnoreCase(nombre) && !nombre.isEmpty()) {
-			modifiedProduct.setNombre(nombre);
+		
+		if(!productoOriginal.getNombre().equalsIgnoreCase(productoModificado.getNombre()) && !productoModificado.getNombre().isEmpty()) {
+			productoOriginal.setNombre(productoModificado.getNombre());
 		}
-		if(!modifiedProduct.getDescripcion().equalsIgnoreCase(descripcion) && !descripcion.isEmpty()){
-			modifiedProduct.setDescripcion(descripcion);
+		if(!productoOriginal.getDescripcion().equalsIgnoreCase(productoModificado.getDescripcion()) && !productoModificado.getDescripcion().isEmpty()) {
+			productoOriginal.setDescripcion(productoModificado.getDescripcion());
 		}
-		if(!modifiedProduct.getMarca().equalsIgnoreCase(marca) && !marca.isEmpty()) {
-			modifiedProduct.setMarca(marca);
+		if(!productoOriginal.getMarca().equalsIgnoreCase(productoModificado.getMarca()) && !productoModificado.getMarca().isEmpty()) {
+			productoOriginal.setMarca(productoModificado.getMarca());
 		}
-		if(modifiedProduct.getPrecio() != precio && precio != 0) {
-			modifiedProduct.setPrecio(precio);
+		if(productoOriginal.getPrecio() != 0 && productoModificado.getPrecio() != 0) {
+			productoOriginal.setPrecio(productoModificado.getPrecio());
 		}
-		if(modifiedProduct.getStock() != stock && stock !=0) {
-			modifiedProduct.setStock(stock);
+		if(productoOriginal.getStock() != 0 && productoModificado.getStock() != 0) {
+			productoOriginal.setStock(productoModificado.getStock());
 		}
-		if(!modifiedProduct.getEstado().equalsIgnoreCase(estado) && !estado.isEmpty()) {
-			modifiedProduct.setEstado(estado);
+		if(!productoOriginal.getEstado().equalsIgnoreCase(productoModificado.getEstado()) && !productoModificado.getEstado().isEmpty()) {
+			productoOriginal.setEstado(productoModificado.getEstado());
 		}
-		productRepo.save(modifiedProduct);
+		productRepo.save(productoModificado);
+		
 	}
 }
