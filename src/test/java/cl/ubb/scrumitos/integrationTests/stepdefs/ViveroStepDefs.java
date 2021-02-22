@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 
 import cl.ubb.scrumitos.integrationTests.CucumberSpringContextConfiguration;
+import cl.ubb.scrumitos.model.Funcionario;
 import cl.ubb.scrumitos.model.Proveedor;
 import cl.ubb.scrumitos.model.Vale;
 import cl.ubb.scrumitos.repository.ValeRepository;
@@ -30,11 +31,14 @@ public class ViveroStepDefs extends CucumberSpringContextConfiguration {
 	@LocalServerPort
 	private int port;
 
+	int idFunc;
 	Vale vale;
 	Proveedor nuevoProveedor;
+	Funcionario fun;
 
 	private ResponseEntity<Vale> responseVale;
 	private ResponseEntity<Proveedor> responseProveedor;
+	private ResponseEntity<Funcionario> responseFuncionario;
 
 	@Autowired
 	private ValeRepository valeRepository;
@@ -111,6 +115,29 @@ public class ViveroStepDefs extends CucumberSpringContextConfiguration {
 
 	private String createURLWithPort(String uri) {
 		return "http://localhost:" + port + uri;
+	}
+	
+	//editar funcionario
+	@Given("Hay un Funcionario con id {int},nombre {string}, apellido {string}, run {string}, telefono {string}, cargo {string}, email {string}, estado {string}")
+	public void hay_un_funcionario_con_id_nombre_apellido_run_telefono_cargo_email_estado(Integer id, String nombre, String apellido, String run, String telefono, String cargo, String email, String estado) {
+	    fun = new Funcionario(run,nombre,apellido,cargo,telefono,email,id,estado);
+	    idFunc=id;
+	}
+
+	@When("se desea editar al funcionario")
+	public void se_desea_editar_al_funcionario() {
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.add(CONTENT_TYPE, APPLICATION_JSON_VALUE);
+		HttpEntity<Funcionario> entity = new HttpEntity<>(fun, httpHeaders);
+
+		testRestTemplate = new TestRestTemplate();
+		 responseFuncionario = testRestTemplate.exchange(createURLWithPort("/Funcionarios/update/"+idFunc), HttpMethod.POST,
+				entity, Funcionario.class);
+	}
+
+	@Then("se obtiene el status {string}")
+	public void se_obtiene_el_status(String string) {
+		assertEquals(string.toUpperCase(), responseFuncionario.getStatusCode().name().toString());
 	}
 
 }
