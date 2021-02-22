@@ -7,7 +7,8 @@ import cl.ubb.scrumitos.model.Funcionario;
 @Repository
 public class FuncionarioRepository {
 	
-	public void save(Funcionario funcionario) {
+	public Funcionario save(Funcionario funcionario) {
+		return funcionario;
 		
 		// TODO Auto-generated method stub
 		

@@ -16,4 +16,11 @@ Feature: Servicios asociados a un vivero
     Given Hay un proveedor con id 5014, rut "18595862-1", direccion "Las Castañas 78", telefono "415268745", email "diego@gmail.com", nombre "Diego", estado "activo"
     When se desea editar al proveedor
     Then se obtiene el status "not_found"
+    
+    Scenario: El sistema no puede editar un funcionario porque lo busca y no existe
+    Given Hay un Funcionario con id 2525,nombre "carolina", apellido "pereira", run "19597349-1", telefono "484645498", cargo "vendedor", email "carolina@gmail.com", estado "activo"
+    When se desea editar al funcionario
+    Then se obtiene el status "not_found"
+    
+    
 
