@@ -12,7 +12,8 @@ Feature: Servicios asociados a un vivero
      When se desea agregar a este proveedor a los registros del vivero
      Then se obtiene el estado "created" y el proveedor creado tiene como nombre "Berta Ortiz", rut "12632851-9" y direccion "Tomas Delphin 878"
 
-
-
-
+	Scenario: El sistema no puede editar un proveedor porque lo busca y no existe
+    Given Hay un proveedor con id 5014, rut "18595862-1", direccion "Las Castañas 78", telefono "415268745", email "diego@gmail.com", nombre "Diego", estado "activo"
+    When se desea editar al proveedor
+    Then se obtiene el status "not_found"
 
