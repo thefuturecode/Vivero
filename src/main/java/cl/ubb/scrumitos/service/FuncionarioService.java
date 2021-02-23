@@ -18,7 +18,7 @@ public class FuncionarioService {
 	
 	public Funcionario searchFuncionario(int id) throws  FuncionarioNotFoundException {
 		
-			Funcionario funcionario = funcionarioRepo.findById(id);
+			Funcionario funcionario = funcionarioRepo.getOne(id);
 			
 			if(funcionario == null) {
 				throw new FuncionarioNotFoundException();

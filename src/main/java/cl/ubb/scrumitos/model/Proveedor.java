@@ -5,13 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="proveedores")
 public class Proveedor {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "idProveedor")
+	@Column(name = "id_proveedor")
 	private int id;
 	private String rut;
 	private String direccion;

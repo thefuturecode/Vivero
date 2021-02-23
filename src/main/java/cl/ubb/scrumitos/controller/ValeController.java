@@ -1,5 +1,7 @@
 package cl.ubb.scrumitos.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,30 +32,14 @@ public class ValeController {
 	@Autowired
 	private ValeService valeService;
 	
-	@PostMapping("/agregar")
-	public ResponseEntity<Vale> logicAgregar(@RequestBody Vale vale) throws Exception {
-		
-		try {
-			valeService.guardarVale(vale);
-			return new ResponseEntity<>(vale, HttpStatus.CREATED);
-			
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+	@GetMapping("/listar")
+	public ResponseEntity<List<Vale>> getAllVales() throws Exception{
+		try{
+			List<Vale> vales = valeService.getAllVales();
+			return new ResponseEntity<>(vales,HttpStatus.OK);
+		}catch (Exception e){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
-	}
-	
-	@GetMapping("/actualizar/{id}")
-	public ResponseEntity<Vale> actualizarVale(@PathVariable int id) throws WithoutChangesException, BlankDataException, ValeAlreadyExistsException{
-		
-		try {
-			valeService.searchVale(id);
-
-		} catch (ValeAlreadyExistsException e) {
-			return new ResponseEntity<Vale>(HttpStatus.NOT_FOUND);
-		}
-
-		return new ResponseEntity<Vale>(HttpStatus.OK);
 	}
 	
 	@GetMapping("/eliminar/{id}")
@@ -63,4 +49,24 @@ public class ValeController {
 		return new ResponseEntity<Vale>(HttpStatus.OK);
 	}
 	
+	@PostMapping("/agregar")
+	public ResponseEntity<Vale> agregarVale(@RequestBody Vale vale) throws ValeNotFoundException{
+		try {
+			valeService.agregarVale(vale);
+			return new ResponseEntity<>(vale, HttpStatus.CREATED);
+		}catch (ValeAlreadyExistsException e) {
+			return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+		}
+	}
+	
+	 @PostMapping("/update/{id}")
+	    public ResponseEntity<Vale> update(@PathVariable int id, Vale vale) {
+	        try {
+	        	vale.setIdVale(id);
+	            return new ResponseEntity<Vale>(valeService.editarVale(vale),HttpStatus.CREATED);
+	        } catch (ValeNotFoundException e) {
+	            return new ResponseEntity<Vale>(HttpStatus.NOT_FOUND);
+	        }
+
+	    }
 }

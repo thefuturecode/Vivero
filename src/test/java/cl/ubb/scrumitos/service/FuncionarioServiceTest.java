@@ -64,7 +64,7 @@ class FuncionarioServiceTest {
 		// Arrange
 		Funcionario func = new Funcionario ("19289859-7", "Javier", "Saavedra", "vendedor","+56985997895",
 				"j.Saavedra@gmail.com",1,"activo");
-		when(funcionarioRepo.findById(1)).thenReturn(func);
+		when(funcionarioRepo.getOne(1)).thenReturn(func);
 
 		// Act
 		Funcionario func2 = funcService.searchFuncionario(1);
@@ -80,7 +80,7 @@ class FuncionarioServiceTest {
 		      // Arrange
 				Funcionario func = new Funcionario ("19289859-7", "Javier", "Saavedra", "vendedor","+56985997895",
 						"j.Saavedra@gmail.com",1,"activo");
-				when(funcionarioRepo.findById(1)).thenReturn(func);
+				when(funcionarioRepo.getOne(1)).thenReturn(func);
 				
 				// Act
 			    funcService.eliminarFuncionario(1);

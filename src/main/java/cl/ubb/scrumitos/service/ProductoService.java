@@ -16,7 +16,7 @@ public class ProductoService {
 	private ProductoRepository productRepo;
 
 	public Producto searchProduct(int codigo) throws ProductNotFoundException {
-		Producto productFound = productRepo.findById(codigo);
+		Producto productFound = productRepo.getOne(codigo);
 		
 		if (productFound == null) {
 			throw new ProductNotFoundException();

@@ -66,13 +66,12 @@ public class ViveroStepDefs extends CucumberSpringContextConfiguration {
 		HttpEntity<Vale> entity = new HttpEntity<>(vale, httpHeaders);
 
 		testRestTemplate = new TestRestTemplate();
-		// responseVale = testRestTemplate.exchange(createURLWithPort("/vale/agregar"),
-		// HttpMethod.POST,entity,Vale.class);
+		responseVale = testRestTemplate.exchange(createURLWithPort("/vale/agregar"),HttpMethod.POST,entity,Vale.class);
 	}
 
 	@Then("se obtiene el estado {string}")
 	public void se_obtiene_el_estado(String estado) {
-		// assertEquals(estado.toUpperCase(),responseVale.getStatusCode().name().toString());
+		assertEquals(estado.toUpperCase(),responseVale.getStatusCode().name().toString());
 
 	}
 

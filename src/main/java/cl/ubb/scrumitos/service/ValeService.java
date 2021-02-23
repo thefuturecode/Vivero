@@ -1,6 +1,7 @@
 package cl.ubb.scrumitos.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,38 +21,54 @@ public class ValeService {
 	@Autowired
 	private ValeRepository valeRepo;
 	
-	public Vale searchVale(int id) throws ValeAlreadyExistsException {
+	public List<Vale> getAllVales() throws Exception {
+		if (valeRepo.findAll().isEmpty()) {
+			throw new Exception();
+		}
+		return valeRepo.findAll();
+	}
+	
+	
+	public void agregarVale(Vale vale) throws ValeAlreadyExistsException, ValeNotFoundException {
+		if (valeRepo.getOne(vale.getIdVale()) == null) {
+			valeRepo.save(vale);
+		}else{
+			throw new ValeAlreadyExistsException();
+		}
+	}
+	
+	public Vale editarVale(Vale vale) throws ValeNotFoundException {
+		if	(valeRepo.getOne(vale.getIdVale()) ==null) {
+			throw new ValeNotFoundException();
+		}
+		return valeRepo.save(vale);
+
+	}
+	
+	
+	
+	
+	public Vale searchVale(int id) throws Exception {
 		
-		Vale vale = valeRepo.findById(id);
+		Vale vale = valeRepo.getOne(id);
 		
 		if (vale != null) {
-			throw new ValeAlreadyExistsException();
+			throw new Exception();
 		}
 		return vale;
 	}
 	
 	public Vale searchVale2(int id) {
 		if (valeRepo.findById(id) != null) {
-			return (Vale) valeRepo.findById(id);
+			return (Vale) valeRepo.getOne(id);
 		}
 		return new Vale();
 
 	}
 	
-	public void guardarVale(Vale vale) throws ValeAlreadyExistsException, ValeNotFoundException, BlankDataException {
-		
-		if(vale.getIdVale()== 0 && vale.getIdFuncionario() == 0 && vale.getFecha()==null && vale.getCodigoProducto()==0 && vale.getTotal()==0) {
-			throw new BlankDataException();
-		}
-		Vale aux = valeRepo.findById(vale.getIdVale());
-		if(aux!= null) {
-			throw new ValeAlreadyExistsException();
-		}else {
-			valeRepo.save(vale);
-		}
-	}
 	
-	public void modificarVale(Vale vale) throws WithoutChangesException, BlankDataException, ValeNotFoundException, ValeAlreadyExistsException {
+	
+	public void modificarVale(Vale vale) throws Exception {
 		
 		Vale valeAModificar = searchVale(vale.getIdVale());
 		

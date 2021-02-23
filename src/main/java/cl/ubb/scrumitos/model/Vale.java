@@ -2,24 +2,30 @@ package cl.ubb.scrumitos.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 @Entity
+@Table(name="vales")
 public class Vale {
 	@Id
-	@GeneratedValue
-	private int idVale;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_vale")
+	private Integer idVale;
+	@Column(name = "id_funcionario")
 	private int idFuncionario;
 	private String fecha;
+	@Column(name = "codigo_producto")
 	private int codigoProducto;
 	private int total;
 	
 	
 	
 	
-	public Vale() {
-	}
+	public Vale() {super();}
 
 
 	public Vale(int idFuncionario, String fecha, int codigoProducto, int total) {

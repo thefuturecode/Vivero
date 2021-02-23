@@ -1,14 +1,19 @@
 package cl.ubb.scrumitos.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="productos")
 public class Producto {
 	@Id
-	@GeneratedValue
-	private int codigo;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_producto")
+	private Integer codigo;
 	
 	private String nombre;
 	private String marca;

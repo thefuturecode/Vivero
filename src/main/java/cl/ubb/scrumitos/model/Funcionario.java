@@ -1,10 +1,13 @@
 package cl.ubb.scrumitos.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="funcionarios")
 public class Funcionario {
 
 	private String run;
@@ -16,6 +19,7 @@ public class Funcionario {
 
 	@Id
 	@GeneratedValue
+	@Column(name = "id_funcionario")
 	private int idFuncionario;
 	private String estado;
 	

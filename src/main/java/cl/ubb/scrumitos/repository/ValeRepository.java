@@ -1,29 +1,13 @@
 package cl.ubb.scrumitos.repository;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import cl.ubb.scrumitos.model.Vale;
 
 @Repository
-public class ValeRepository {
-
-	public Vale findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void save(Vale vale) {
-		// TODO Auto-generated method stub
-		
-		
-	}
+public interface ValeRepository extends JpaRepository<Vale,Integer> {
 	
-	public void delete(Vale vale) {
-		// TODO Auto-generated method stub
-	}
-
-	public void deleteAll() {
-		// TODO Auto-generated method stub
-		
-	}
 }
