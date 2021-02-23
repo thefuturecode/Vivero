@@ -58,10 +58,9 @@ public class ViveroStepDefs extends CucumberSpringContextConfiguration {
 	}
 
 	// Ingreso de un vale
-	@Given("existe un vale; idFuncionario {int}, fecha {string}, codigoProducto {int}, total {int}")
-	public void existe_un_nuevo_vale_idFuncionario_fecha_codigoProducto_total(int idFuncionario, String fecha,
-			int codigoProducto, int total) {
-		vale = new Vale(idFuncionario, fecha, codigoProducto, total);
+	@Given("existe un vale id_funcionario {int}, fecha {string}, codigo_producto {int}, total {int}")
+	public void existe_un_nuevo_vale_idFuncionario_fecha_codigoProducto_total(int id_funcionario, String fecha, int codigoProducto, int total) {
+		vale = new Vale(id_funcionario, fecha, codigoProducto, total);
 
 	}
 
