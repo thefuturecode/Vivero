@@ -18,7 +18,7 @@ public class ProveedorService {
 
 	@Transactional
 	public Proveedor addProvider (Proveedor proveedor) {
-		if (proveedor == null) return null;
+		if (proveedor.getRut() == null || proveedor.getNombre() == null || proveedor.getDireccion() == null) return null;
 		if (proveedor.getEstado() == null) proveedor.setEstado("Activo");
 		return proveedorRepo.save(proveedor);
 	}

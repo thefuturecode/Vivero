@@ -1,7 +1,6 @@
 package cl.ubb.scrumitos.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -17,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -26,7 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cl.ubb.scrumitos.exceptions.ProveedorNotFoundException;
 import cl.ubb.scrumitos.model.Producto;
-import cl.ubb.scrumitos.model.Proveedor;
 import cl.ubb.scrumitos.service.ProveedorService;
 
 @ExtendWith(MockitoExtension.class)
