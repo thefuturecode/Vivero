@@ -2,12 +2,10 @@ package cl.ubb.scrumitos.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import cl.ubb.scrumitos.exceptions.FuncionarioAlreadyExistsException;
 import cl.ubb.scrumitos.exceptions.FuncionarioNotFoundException;
 import cl.ubb.scrumitos.model.Funcionario;
-import cl.ubb.scrumitos.model.Producto;
 import cl.ubb.scrumitos.repository.FuncionarioRepository;
+
 
 @Service
 public class FuncionarioService {
@@ -27,11 +25,8 @@ public class FuncionarioService {
 			return funcionario;
 	}
 	
-	public void agregar(Funcionario funcionario){
-		   	       
+	public void agregar(Funcionario funcionario){   	       
 	      funcionarioRepo.save(funcionario);
-	       
-		
 		}
 
 	public void eliminarFuncionario(int id) throws FuncionarioNotFoundException{
@@ -40,7 +35,10 @@ public class FuncionarioService {
 		funcionarioRepo.save(deletedFunc);
 		
 	}
-	
+	public Funcionario updateFuncionario(Funcionario funcionario) throws FuncionarioNotFoundException {
+        searchFuncionario(funcionario.getIdFuncionario());
+        return  funcionarioRepo.save(funcionario);
+    }
 	
 	
 

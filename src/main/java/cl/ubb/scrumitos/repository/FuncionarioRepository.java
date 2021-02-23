@@ -9,5 +9,4 @@ import cl.ubb.scrumitos.model.Vale;
 @Repository
 public interface FuncionarioRepository extends JpaRepository<Funcionario,Integer>{
 	
-
 }
