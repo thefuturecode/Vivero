@@ -1,24 +1,12 @@
 package cl.ubb.scrumitos.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import cl.ubb.scrumitos.model.Funcionario;
+import cl.ubb.scrumitos.model.Vale;
 
 @Repository
-public class FuncionarioRepository {
-	
-	public void save(Funcionario funcionario) {
-		
-		// TODO Auto-generated method stub
-		
-	}
-
-	public Funcionario findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	
+public interface FuncionarioRepository extends JpaRepository<Funcionario,Integer>{
 	
 }

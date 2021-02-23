@@ -2,11 +2,11 @@ package cl.ubb.scrumitos.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cl.ubb.scrumitos.exceptions.BlankDataException;
 import cl.ubb.scrumitos.exceptions.ProveedorNotFoundException;
 import cl.ubb.scrumitos.exceptions.WithoutChangesException;
-import cl.ubb.scrumitos.model.Producto;
 import cl.ubb.scrumitos.model.Proveedor;
 import cl.ubb.scrumitos.repository.ProveedorRepository;
 
@@ -16,11 +16,18 @@ public class ProveedorService {
 	@Autowired
 	private ProveedorRepository proveedorRepo;
 
+	@Transactional
+	public Proveedor addProvider (Proveedor proveedor) {
+		if (proveedor.getRut() == null || proveedor.getNombre() == null || proveedor.getDireccion() == null) return null;
+		if (proveedor.getEstado() == null) proveedor.setEstado("Activo");
+		return proveedorRepo.save(proveedor);
+	}
+
 	public Proveedor searchProvider(int i) throws ProveedorNotFoundException {
 		if (proveedorRepo.findById(i) == null)
 			throw new ProveedorNotFoundException();
 
-		return (Proveedor) proveedorRepo.findById(i);
+		return (Proveedor) proveedorRepo.getOne(i);
 	}
 
 	public void delete(int i) throws ProveedorNotFoundException {

@@ -1,9 +1,19 @@
 package cl.ubb.scrumitos.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="proveedores")
 public class Proveedor {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_proveedor")
 	private int id;
 	private String rut;
 	private String direccion;
@@ -12,14 +22,15 @@ public class Proveedor {
 	private String nombre;
 	private String estado;
 
-	public Proveedor(int id, String rut, String direccion, String telefono, String email, String nombre, String estado) {
-		this.id = id;
+	public Proveedor() { super(); }
+
+	public Proveedor(String nombre, String rut, String telefono, String email, String direccion) {
 		this.rut = rut;
 		this.direccion = direccion;
 		this.telefono = telefono;
 		this.email = email;
 		this.nombre = nombre;
-		this.estado = estado;
+		this.estado = "Activo";
 	}
 
 	public int getId() {

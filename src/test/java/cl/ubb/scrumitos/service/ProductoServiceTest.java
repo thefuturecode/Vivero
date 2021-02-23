@@ -61,7 +61,7 @@ class ProductoServiceTest {
 		// Arrange
 		Producto productoIngresado = new Producto(1, "Arbol frutal", "Kilamapu", "Arbol de 30 centimetros", 500, 10,
 				"Activo");
-		when(productRepo.findById(1)).thenReturn(productoIngresado);
+		when(productRepo.getOne(1)).thenReturn(productoIngresado);
 
 		// Act
 		Producto productoObtenido = productService.searchProduct(1);
@@ -100,7 +100,7 @@ class ProductoServiceTest {
 		// Arrange
 		Producto productoBuscado = new Producto(3, "Tierra Biologica Compost", "ANASAC", 
 				"Producto natural, hecho a partir de la compostación de residuos orgánicos", 4990, 20, "Activo");
-		when(productRepo.findById(3)).thenReturn(productoBuscado);
+		when(productRepo.getOne(3)).thenReturn(productoBuscado);
 		
 		// Act
 		Producto productoObtenido = productService.searchProduct(3);
@@ -137,7 +137,7 @@ class ProductoServiceTest {
 		// Arrange
 		Producto productoBuscado = new Producto(3, "Tierra Biologica Compost", "ANASAC", 
 				"Producto natural, hecho a partir de la compostación de residuos orgánicos", 4990, 20, "Activo");
-		when(productRepo.findById(3)).thenReturn(productoBuscado);
+		when(productRepo.getOne(3)).thenReturn(productoBuscado);
 		
 		// Act
 		productService.eliminarProducto(3);
@@ -157,7 +157,7 @@ class ProductoServiceTest {
 			// Arrange
 			Producto productoBuscado = new Producto(3, "Tierra Biologica Compost", "ANASAC", 
 					"Producto natural, hecho a partir de la compostación de residuos orgánicos", 4990, 20, "Inactivo");
-			when(productRepo.findById(3)).thenReturn(productoBuscado);
+			when(productRepo.getOne(3)).thenReturn(productoBuscado);
 			
 			// Act
 			productService.modificarProducto(3, "Tierra Compost", "ARTHEMIS", 
@@ -184,7 +184,7 @@ class ProductoServiceTest {
 			// Arrange
 			Producto productoBuscado = new Producto(3, "Tierra Biologica Compost", "ANASAC", 
 					"Producto natural, hecho a partir de la compostación de residuos orgánicos", 4990, 20, "Inactivo");
-			when(productRepo.findById(3)).thenReturn(productoBuscado);
+			when(productRepo.getOne(3)).thenReturn(productoBuscado);
 			
 			// Act + Assert
 			assertThrows(WithoutChangesException.class, ()-> productService.modificarProducto(3, "Tierra Biologica Compost", "ANASAC", 
@@ -199,7 +199,7 @@ class ProductoServiceTest {
 			// Arrange
 			Producto productoBuscado = new Producto(3, "Tierra Biologica Compost", "ANASAC", 
 				"Producto natural, hecho a partir de la compostación de residuos orgánicos", 4990, 20, "Inactivo");
-			when(productRepo.findById(3)).thenReturn(productoBuscado);
+			when(productRepo.getOne(3)).thenReturn(productoBuscado);
 					
 			// Act + Assert
 			assertThrows(BlankDataException.class, ()-> productService.modificarProducto(3, "", "", "", 0, 0, ""));
