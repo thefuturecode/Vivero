@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cl.ubb.scrumitos.exceptions.BlankDataException;
 import cl.ubb.scrumitos.exceptions.FuncionarioAlreadyExistsException;
@@ -28,14 +29,11 @@ public class ValeService {
 		return valeRepo.findAll();
 	}
 	
-	
-	public void agregarVale(Vale vale) throws ValeAlreadyExistsException, ValeNotFoundException {
-		valeRepo.save(vale);
-		/*if (valeRepo.getOne(vale.getIdVale()) == null) {
-			valeRepo.save(vale);
-		}else{
-			throw new ValeAlreadyExistsException();
-		}*/
+	@Transactional
+	public Vale agregarVale(Vale vale) throws ValeAlreadyExistsException, ValeNotFoundException {
+		if (vale != null) return valeRepo.save(vale);
+		else return null;
+		
 	}
 	
 	public Vale editarVale(Vale vale) throws ValeNotFoundException {

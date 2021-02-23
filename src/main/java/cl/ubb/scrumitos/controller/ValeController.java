@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import cl.ubb.scrumitos.exceptions.BlankDataException;
 import cl.ubb.scrumitos.exceptions.ProductNotFoundException;
@@ -25,7 +26,7 @@ import cl.ubb.scrumitos.model.Producto;
 import cl.ubb.scrumitos.model.Vale;
 import cl.ubb.scrumitos.service.ValeService;
 
-@Controller
+@RestController
 @RequestMapping("/vale")
 public class ValeController {
 
@@ -52,10 +53,10 @@ public class ValeController {
 	@PostMapping("/agregar")
 	public ResponseEntity<Vale> agregarVale(@RequestBody Vale vale) throws ValeNotFoundException{
 		try {
-			valeService.agregarVale(vale);
-			return new ResponseEntity<>(vale, HttpStatus.CREATED);
+			Vale nuevoVale = valeService.agregarVale(vale);
+			return new ResponseEntity<>(nuevoVale, HttpStatus.CREATED);
 		}catch (ValeAlreadyExistsException e) {
-			return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 	}
 	

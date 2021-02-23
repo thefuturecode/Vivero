@@ -157,7 +157,7 @@ class ProductoServiceTest {
 			// Arrange
 			Producto productoOriginal = new Producto(3, "Tierra Biologica Compost", "ANASAC", 
 					"Producto natural, hecho a partir de la compostación de residuos orgánicos", 4990, 20, "Inactivo");
-			when(productRepo.findById(3)).thenReturn(productoOriginal);
+			when(productRepo.getOne(3)).thenReturn(productoOriginal);
 			
 			Producto productoModificado = new Producto(3, "Tierra Compost", "ARTHEMIS", 
 					"Producto natural, hecho en base a compostación de residuos orgánicos", 5990, 15, "Activo");
@@ -185,7 +185,7 @@ class ProductoServiceTest {
 			// Arrange
 			Producto productoOriginal = new Producto(3, "Tierra Biologica Compost", "ANASAC", 
 					"Producto natural, hecho a partir de la compostación de residuos orgánicos", 4990, 20, "Inactivo");
-			when(productRepo.findById(3)).thenReturn(productoOriginal);
+			when(productRepo.getOne(3)).thenReturn(productoOriginal);
 			
 			Producto productoModificado = new Producto(3, "Tierra Biologica Compost", "ANASAC", 
 					"Producto natural, hecho a partir de la compostación de residuos orgánicos", 4990, 20, "Inactivo");
@@ -202,7 +202,7 @@ class ProductoServiceTest {
 			// Arrange
 			Producto productoOriginal = new Producto(3, "Tierra Biologica Compost", "ANASAC", 
 					"Producto natural, hecho a partir de la compostación de residuos orgánicos", 4990, 20, "Inactivo");
-			when(productRepo.findById(3)).thenReturn(productoOriginal);
+			when(productRepo.getOne(3)).thenReturn(productoOriginal);
 			
 			Producto productoModificado = new Producto(3, "", "", "", 0, 0, "");
 					

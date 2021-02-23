@@ -1,6 +1,5 @@
 package cl.ubb.scrumitos.model;
 
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +13,7 @@ public class Vale {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_vale")
-	private Integer idVale;
+	private int idVale;
 	@Column(name = "id_funcionario")
 	private int idFuncionario;
 	private String fecha;
@@ -29,7 +28,6 @@ public class Vale {
 
 
 	public Vale(int idFuncionario, String fecha, int codigoProducto, int total) {
-		this.idVale = idVale;
 		this.idFuncionario = idFuncionario;
 		this.fecha = fecha;
 		this.codigoProducto = codigoProducto;
