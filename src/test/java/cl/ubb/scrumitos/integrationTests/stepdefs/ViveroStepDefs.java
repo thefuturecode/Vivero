@@ -32,9 +32,11 @@ public class ViveroStepDefs extends CucumberSpringContextConfiguration {
 	private int port;
 
 	int idFunc;
+	int idProveedor;
 	Vale vale;
 	Proveedor nuevoProveedor;
 	Funcionario fun;
+	Proveedor proveedor;
 
 	private ResponseEntity<Vale> responseVale;
 	private ResponseEntity<Proveedor> responseProveedor;
@@ -139,4 +141,26 @@ public class ViveroStepDefs extends CucumberSpringContextConfiguration {
 		assertEquals(string.toUpperCase(), responseFuncionario.getStatusCode().name().toString());
 	}
 
+	//EDITAR PROVEEDOR
+	@Given("Hay un proveedor con id {int}, rut {string}, direccion {string}, telefono {string}, email {string}, nombre {string}")
+	public void hay_un_proveedor_con_id_rut_direccion_telefono_email_nombre_estado(Integer id, String rut, String direccion, String telefono, String email, String nombre) {
+	    proveedor = new Proveedor(rut, direccion, telefono, email, nombre);
+	    idProveedor = id;
+	}
+
+	@When("se desea editar el proveedor")
+	public void se_desea_editar_el_proveedor() {
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.add(CONTENT_TYPE, APPLICATION_JSON_VALUE);
+		HttpEntity<Proveedor> entity = new HttpEntity<>(proveedor, httpHeaders);
+
+		testRestTemplate = new TestRestTemplate();
+		 responseProveedor = testRestTemplate.exchange(createURLWithPort("/Proveedor/modificar/"+idProveedor), HttpMethod.POST,
+				entity, Proveedor.class);
+	}
+
+	@Then("se obtiene la respuesta {string}")
+	public void se_obtiene_la_respuesta(String string) {
+		assertEquals(string.toUpperCase(), responseProveedor.getStatusCode().name().toString());
+	}
 }

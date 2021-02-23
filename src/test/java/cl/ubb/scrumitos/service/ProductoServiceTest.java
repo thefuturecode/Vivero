@@ -155,25 +155,26 @@ class ProductoServiceTest {
 		void siDeseaModificarProductoYEsteEsEncontradoEntoncesLoModificaYGuardaLosCambios() 
 				throws ProductNotFoundException, WithoutChangesException, BlankDataException {
 			// Arrange
-			Producto productoBuscado = new Producto(3, "Tierra Biologica Compost", "ANASAC", 
+			Producto productoOriginal = new Producto(3, "Tierra Biologica Compost", "ANASAC", 
 					"Producto natural, hecho a partir de la compostación de residuos orgánicos", 4990, 20, "Inactivo");
-			when(productRepo.getOne(3)).thenReturn(productoBuscado);
+			when(productRepo.findById(3)).thenReturn(productoOriginal);
 			
-			// Act
-			productService.modificarProducto(3, "Tierra Compost", "ARTHEMIS", 
+			Producto productoModificado = new Producto(3, "Tierra Compost", "ARTHEMIS", 
 					"Producto natural, hecho en base a compostación de residuos orgánicos", 5990, 15, "Activo");
 			
-			//Assert
-			assertNotNull(productoBuscado);
-			assertEquals("Tierra Compost", productoBuscado.getNombre());
-			assertEquals("ARTHEMIS", productoBuscado.getMarca());
-			assertEquals("Producto natural, hecho en base a compostación de residuos orgánicos", 
-					productoBuscado.getDescripcion());
-			assertEquals(5990, productoBuscado.getPrecio());
-			assertEquals(15, productoBuscado.getStock());
-			assertEquals("Activo", productoBuscado.getEstado());
+			// Act
+			productService.modificarProducto(productoModificado);
 			
-			verify(productRepo, times(1)).save(productoBuscado);
+			//Assert
+			assertNotNull(productoModificado);
+			assertEquals(productoModificado.getNombre(), productoOriginal.getNombre());
+			assertEquals(productoModificado.getMarca(), productoOriginal.getMarca());
+			assertEquals(productoModificado.getDescripcion(), productoOriginal.getDescripcion());
+			assertEquals(productoModificado.getPrecio(), productoOriginal.getPrecio());
+			assertEquals(productoModificado.getStock(), productoOriginal.getStock());
+			assertEquals(productoModificado.getEstado(), productoOriginal.getEstado());
+			
+			verify(productRepo, times(1)).save(productoModificado);
 		}
 
 		// Modificar los datos del producto
@@ -182,13 +183,15 @@ class ProductoServiceTest {
 		void siDeseaModificarProductoYEsteEsEncontradoEntoncesLoModificaSinCambiosYGuardaLosCambios() 
 				throws ProductNotFoundException, WithoutChangesException {
 			// Arrange
-			Producto productoBuscado = new Producto(3, "Tierra Biologica Compost", "ANASAC", 
+			Producto productoOriginal = new Producto(3, "Tierra Biologica Compost", "ANASAC", 
 					"Producto natural, hecho a partir de la compostación de residuos orgánicos", 4990, 20, "Inactivo");
-			when(productRepo.getOne(3)).thenReturn(productoBuscado);
+			when(productRepo.findById(3)).thenReturn(productoOriginal);
+			
+			Producto productoModificado = new Producto(3, "Tierra Biologica Compost", "ANASAC", 
+					"Producto natural, hecho a partir de la compostación de residuos orgánicos", 4990, 20, "Inactivo");
 			
 			// Act + Assert
-			assertThrows(WithoutChangesException.class, ()-> productService.modificarProducto(3, "Tierra Biologica Compost", "ANASAC", 
-				"Producto natural, hecho a partir de la compostación de residuos orgánicos", 4990, 20, "Inactivo"));
+			assertThrows(WithoutChangesException.class, ()-> productService.modificarProducto(productoModificado));
 			}
 		
 		// Modificar los datos del producto
@@ -197,11 +200,13 @@ class ProductoServiceTest {
 		void siDeseaModificarProductoYEsteEsEncontradoEntoncesLoModificaConDatosEnBlancoYGuardaLosCambios() 
 			throws ProductNotFoundException, WithoutChangesException, BlankDataException {
 			// Arrange
-			Producto productoBuscado = new Producto(3, "Tierra Biologica Compost", "ANASAC", 
-				"Producto natural, hecho a partir de la compostación de residuos orgánicos", 4990, 20, "Inactivo");
-			when(productRepo.getOne(3)).thenReturn(productoBuscado);
+			Producto productoOriginal = new Producto(3, "Tierra Biologica Compost", "ANASAC", 
+					"Producto natural, hecho a partir de la compostación de residuos orgánicos", 4990, 20, "Inactivo");
+			when(productRepo.findById(3)).thenReturn(productoOriginal);
+			
+			Producto productoModificado = new Producto(3, "", "", "", 0, 0, "");
 					
 			// Act + Assert
-			assertThrows(BlankDataException.class, ()-> productService.modificarProducto(3, "", "", "", 0, 0, ""));
+			assertThrows(BlankDataException.class, ()-> productService.modificarProducto(productoModificado));
 		}	
 }

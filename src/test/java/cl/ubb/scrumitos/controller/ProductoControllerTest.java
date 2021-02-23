@@ -99,5 +99,24 @@ class ProductoControllerTest {
 		verify(productService, times(1)).eliminarProducto(3);
 		
 	}
-
+	
+	@Test
+	void siModificaUnProductoLosDatosDeEsteTienenQueCambiar() throws Exception{
+		//given
+		Producto producto = new Producto(3, "Tierra Biologica Compost", "ANASAC", 
+				"Producto natural, hecho a partir de la compostación de residuos orgánicos", 4990, 20, "Activo");
+		Producto productoModificado = new Producto(3, "Tierra Compost", "ARTHEMIS", 
+				"Producto natural, hecho en base a compostación de residuos orgánicos", 5990, 15, "Activo");
+		
+		doThrow(new ProductNotFoundException()).when(productService).modificarProducto(producto);
+		
+		//when
+		MockHttpServletResponse response = mockMvc.perform(put("/product/modificar")
+				.accept(MediaType.APPLICATION_JSON))
+				.andReturn().getResponse();
+		
+		// then 
+		assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
+		verify(productService, times(1)).modificarProducto(productoModificado);;
+	}
 }

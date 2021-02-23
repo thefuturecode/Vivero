@@ -58,8 +58,7 @@ public class ProductoController {
 	// Modificación exitosa de un producto
     @PutMapping("modificar")
     public ResponseEntity<Producto> modificaProducto(@RequestBody Producto producto) throws ProductNotFoundException, WithoutChangesException, BlankDataException{
-        productoService.modificarProducto(producto.getCodigo(), producto.getNombre(), producto.getMarca(),
-                    producto.getDescripcion(), producto.getPrecio(), producto.getStock(), producto.getEstado());
+        productoService.modificarProducto(producto);
         return new ResponseEntity<Producto>(producto, HttpStatus.OK);
     }
 }
