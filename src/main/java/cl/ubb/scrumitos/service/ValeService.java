@@ -30,11 +30,12 @@ public class ValeService {
 	
 	
 	public void agregarVale(Vale vale) throws ValeAlreadyExistsException, ValeNotFoundException {
-		if (valeRepo.getOne(vale.getIdVale()) == null) {
+		valeRepo.save(vale);
+		/*if (valeRepo.getOne(vale.getIdVale()) == null) {
 			valeRepo.save(vale);
 		}else{
 			throw new ValeAlreadyExistsException();
-		}
+		}*/
 	}
 	
 	public Vale editarVale(Vale vale) throws ValeNotFoundException {
