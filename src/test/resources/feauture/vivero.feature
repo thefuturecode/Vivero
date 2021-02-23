@@ -2,10 +2,10 @@
 
 Feature: Servicios asociados a un vivero
 
-    Scenario: Agregar un nuevo vale
-     Given existe un vale; idFuncionario 1, fecha "2020-02-20", codigoProducto 1, total 4000
-     When deseo agregar el vale
-     Then se obtiene el estado "created"
+   Scenario: Agregar un nuevo vale
+    Given existe un vale id_funcionario 1, fecha "2020-02-20", codigo_producto 1, total 4000
+    When deseo agregar el vale
+    Then se obtiene el estado "created"
 
     Scenario: Ingresar un nuevo proveedor
      Given se tiene un nuevo proveedor; nombre "Berta Ortiz", rut "12632851-9", telefono "952361478", email "berta@mail.com", direccion "Tomas Delphin 878"
