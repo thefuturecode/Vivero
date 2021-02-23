@@ -7,6 +7,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -79,7 +80,7 @@ public class ViveroStepDefs extends CucumberSpringContextConfiguration {
 
 	}
 
-	// AGREGAR UN NUEVO PROVEEDOR
+	// AGREGAR UN NUEVO PROVEEDOR (Caso exitoso)
 	@Given("se tiene un nuevo proveedor; nombre {string}, rut {string}, telefono {string}, email {string}, direccion {string}")
 	public void se_tiene_un_nuevo_proveedor_y_se_desea_agregar_al_vivero(String nombre, String rut, String telefono,
 			String email, String direccion) {
@@ -112,8 +113,26 @@ public class ViveroStepDefs extends CucumberSpringContextConfiguration {
 		() -> assertEquals(direccion, nuevoProveedor.getDireccion()));
 	}
 
-	private String createURLWithPort(String uri) {
-		return "http://localhost:" + port + uri;
+	// Agregar un nuevo proveedor (caso fallido)
+	@Given("se tiene un nuevo proveedor nombre nulo, rut nulo, telefono {string}, email {string}, direccion nula")
+	public void se_tiene_un_nuevo_proveedor_pero_le_faltan_datos_obligatorios (String telefono, String email) {
+		nuevoProveedor = new Proveedor(null, null, telefono, email, null);
+	}
+
+	@When("se intenta agregar este nuevo proveedor al sistema del vivero")
+	public void se_intenta_agregar_este_nuevo_proveedor_al_sistema () {
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.add(CONTENT_TYPE, APPLICATION_JSON_VALUE);
+		HttpEntity<Proveedor> entity = new HttpEntity<>(nuevoProveedor, httpHeaders);
+
+		testRestTemplate = new TestRestTemplate();
+		responseProveedor = testRestTemplate.exchange(createURLWithPort("/proveedores/agregar"), HttpMethod.POST,
+				entity, Proveedor.class);
+	}
+
+	@Then("se obtendra el estado {string}")
+	public void se_obtendra_el_estado_no_content (String status) {
+		assertEquals(status.toUpperCase(), responseProveedor.getStatusCode().name().toString());
 	}
 	
 	//editar funcionario
@@ -139,4 +158,7 @@ public class ViveroStepDefs extends CucumberSpringContextConfiguration {
 		assertEquals(string.toUpperCase(), responseFuncionario.getStatusCode().name().toString());
 	}
 
+	private String createURLWithPort(String uri) {
+		return "http://localhost:" + port + uri;
+	}
 }

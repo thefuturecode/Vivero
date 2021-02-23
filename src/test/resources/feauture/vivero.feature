@@ -12,6 +12,11 @@ Feature: Servicios asociados a un vivero
      When se desea agregar a este proveedor a los registros del vivero
      Then se obtiene el estado "created" y el proveedor creado tiene como nombre "Berta Ortiz", rut "12632851-9" y direccion "Tomas Delphin 878"
 
+    Scenario: Ingresar un nuevo proveedor sin datos obligatorios
+     Given se tiene un nuevo proveedor nombre nulo, rut nulo, telefono "952361478", email "berta@mail.com", direccion nula
+     When se intenta agregar este nuevo proveedor al sistema del vivero
+     Then se obtendra el estado "no_content" 
+     
     Scenario: El sistema no puede editar un funcionario porque lo busca y no existe
     Given Hay un Funcionario con id 2525,nombre "carolina", apellido "pereira", run "19597349-1", telefono "484645498", cargo "vendedor", email "carolina@gmail.com", estado "activo"
     When se desea editar al funcionario
